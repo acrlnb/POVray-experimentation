@@ -1,0 +1,62 @@
+#include "textures.inc"
+
+camera {
+    location <0, 10, -70> 
+    look_at <0, 0, 0>  
+    }
+    
+light_source {
+    <0, 10, -10>
+    color <0,0,0>
+}
+light_source{ <2,1,0> color rgb <1,1,1>
+              parallel
+              point_at<1, 0, 0> 
+            }  
+plane { y, -30 pigment {White_Marble} }
+plane { z, 100 pigment {Tan_Wood} }  
+
+sphere {<0, 0, 0>, 10 texture {Chrome_Metal}  }          
+
+//----------------- asteríscos
+#declare tamAresta = 4; 
+#declare raioCilindro = 0.8; 
+#declare raioEsfera = 1; 
+#declare abertura = 90;  
+
+#declare aresta = cylinder {<0, -tamAresta, 0>, <0, tamAresta, 0>, raioCilindro
+                            pigment { color rgb <1, 0, 0>} texture {Chrome_Metal} };
+#declare ponta = sphere {<0, tamAresta, 0>, raioEsfera
+                         pigment {color rgb <0, 1, 1>}}; 
+
+
+#declare asterisco = union {
+    object {aresta} 
+    object {aresta rotate <abertura, 0, 0>} 
+    object {aresta rotate <0, 0, abertura>}
+    object {ponta}
+    object {ponta translate <0, -tamAresta*2, 0>} 
+    object {ponta rotate <abertura, 0, 0>} 
+    object {ponta rotate <-abertura, 0, 0>}  
+    object {ponta rotate <0, 0, -abertura>}  
+    object {ponta rotate <0, 0, abertura>}
+     
+}
+
+  
+                
+#declare raioConj = 35; // raio do conjunto de objetos
+#declare qtdObj = 12; // quantidade de objetos 
+#declare Nr = 0; 
+
+
+#while (Nr <= qtdObj)   // círculo de objetos
+    object {
+        asterisco
+        translate <raioConj, 0, 0>
+        rotate <0, Nr * 360/qtdObj, 0>
+    } 
+    #declare Nr = Nr + 1;
+#end    
+
+//--------------- end asteríscos

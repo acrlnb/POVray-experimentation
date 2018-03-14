@@ -1,0 +1,17 @@
+Example:
+
+camera { location <0,4,-9> look_at <0,0,0> angle 35 }
+light_source { <10,20,-40> color 1 }
+
+#declare MySphere =
+  sphere { <0,0,0>,1 pigment { color <1,1,1> } }
+
+object
+{ MySphere
+  translate <-1.5,0,0>
+}
+object
+{ MySphere
+  scale <1,0.5,3>
+  translate <1.5,0,0>
+}
